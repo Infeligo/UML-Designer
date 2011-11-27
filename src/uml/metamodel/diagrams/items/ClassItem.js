@@ -1,10 +1,10 @@
 define([
     "uml/metamodel/diagrams/items/Item",
-    "uml/metamodel/diagrams/items/_Positionable"
+    "uml/metamodel/diagrams/items/Positionable"
 ],
-function (Item, _Positionable) {
+function (Item, Positionable) {
 
-    return dojo.declare([Item, _Positionable], {
+    return dojo.declare([Item, Positionable], {
 
         constructor: function () {
             this._type = "UML Class Item";

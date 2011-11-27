@@ -3,15 +3,12 @@
  */
 
 define([
-    "verb/en/Verbalizer",
-    "verb/et/Verbalizer"
+    "verb/en/Verbalizer"
 ],
 function (
-    VerbalizerEN,
-    VerbalizerET
+    VerbalizerEN
 ) {
     return {
         "en"    :   VerbalizerEN,
-        "et"    :   VerbalizerET
     };
 });
