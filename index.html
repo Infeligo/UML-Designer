@@ -1,0 +1,170 @@
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/Aristo/Aristo.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/forms.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/tree.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/statements.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/welcome.css" />
+    <script type="text/javascript" src="lib/underscore.js"></script>
+    <script type="text/javascript" src="lib/json2.js"></script>
+    <script type="text/javascript" src="lib/doodle/doodle-debug.js"></script>
+    <script type="text/javascript" src="lib/dojo/dojo.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.sizes.js"></script>
+    <script type="text/javascript" src="lib/jquery/jlayout.border.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.jlayout.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.jstree.js"></script>
+    <script>
+        $(function () {
+            $('body button').button();
+            
+            // Layout
+            function relayout() {
+                $('#Container').layout({ type: "border", hgap: 0, vgap: 0, resize: false });
+                $('#Project').layout({ type: "border", hgap: 0, vgap: 0, resize: false });
+                $('#DiagramView').layout({ type: "border", hgap: 0, vgap: 0, resize: false });
+                $('#TextView').layout({ type: "border", hgap: 0, vgap: 0, resize: false });
+            }
+            relayout();
+            
+            $('#Project > .side-panel').resizable({ handles: 'e', stop: relayout });
+            
+            $(window).resize(relayout);
+        });
+    </script>
+    <script type="text/javascript" src="src/base.js"></script>
+    <script type="text/javascript" src="src/debug.js"></script>
+    <!-- Entry point -->
+    <script data-main="src/main" src="lib/require.js"></script>
+    <style>
+        #DiagramView > div > div > canvas {
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="Container">
+    <div class="header north">
+        <div class="logo">
+            <span>UML Designer</span>
+        </div>
+        <ul class="menu">
+          <li><button id="btnProjectNew">New project</button></li>
+          <li><button id="btnProjectOpen">Open projects..</button></li>
+          <li class="divider">&nbsp;</li>
+        </ul>
+        <ul class="menu" id="ProjectMenu" style="display: none;">
+          <li>Project: <span class="project-name">Online shop model</span></li>
+          <li class="divider">&nbsp;</li>
+          <li><button id="btnProjectSave">Save</button></li>
+          <li><button id="btnProjectSettings">Settings..</button></li>
+          <li class="right"><button id="btnProjectClose">Close</button></li>
+        </ul>
+    </div>
+    <div class="workspace center">
+        <div id="Welcome" class="screen-area screen-dialog" style="display: none">
+            <h1>Welcome to UML Designer with sentence generation.</h1>
+            <p>This application demonstrates using sentence generation alongside
+               modeling UML class diagrams. The source code is available on GitHub.</p>
+            <p>Below are sample projects that you can explore:</p>
+            <ul>
+                <li data-project-path="test/data/shop-project.json">
+                    <a href="#">Online shop project (EN)</a>
+                    <p>A simple project that demonstrates sentence generation.</p>
+                </li>
+            </ul>
+            <a href="#" class="back-to-project">Back to current project</a>
+        </div>
+        <div id="Project" class="screen-area" style="display:none">
+            <div class="screen center">
+                <div id="DiagramView" style="display:block">
+                    <div class="view-header north">
+                        <span class="view-name">Order diagram</span>
+                        <a id="linkSwitchToTextView" href="#">Text view</a>
+                    </div>
+                    <div class="diagram center"></div>
+                    <div class="panel text-panel south statements interactive">
+                        <p><span class="related">Student</span> is characterized by <span>full name</span>, 
+                        <span>age</span>, <span>address</span> and <span>id</span>.</p>
+                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
+                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
+                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
+                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
+                    </div>
+                </div>
+                <div id="TextView" style="display:none">
+                    <div class="view-header north">
+                        <span class="view-name">Order diagram</span>
+                        <a id="linkSwitchToDiagramView" href="#">Diagram view</a>
+                    </div>
+                    <div class="text center statements">
+                        <p><span class="related">Student</span> is characterized by <span>full name</span>, 
+                        <span>age</span>, <span>address</span> and <span>id</span>.</p>
+                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
+                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
+                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
+                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel side-panel west">
+                <div class="panel-header"></div>
+                <h3>Project tree:</h3>
+                <div id="ProjectTree" class="control-box">
+                    &nbsp;
+                </div>
+                <div class="button-bar">
+                    <button id="btnDiagramNew">New diagram..</button>
+                    <!--<button id="btnDiagramRemove">X</button>-->
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="footer south">
+        <span class="right">ver.0.2 (2011-11-25)</span>
+    </div>
+</div>
+<div id="ProjectSettings">
+    <style>
+        input#ProjectName {
+            width: 300px;
+        }
+    </style>
+    <div class="form">
+        <div class="form-row">
+            <label for="ProjectType">Type:</label>
+            <span id="ProjectType" class="static">UML Project</span>
+        </div>
+        <div class="form-row">
+            <label for="ProjectName">Name:</label>
+            <input type="text" id="ProjectName" class="fullsize" value="" />
+        </div>
+        <div class="form-row">
+            <label for="ProjectDescription">Description:</label>
+            <textarea id="ProjectDescription" class="fullsize" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+            <label for="ProjectLanguage">Language:</label>
+            <select id="ProjectLanguage">
+                <option value="en">English</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div id="ClassElementEditor">
+    <div class="form">
+        <div class="form-row">
+            <label for="ClassName">ID:</label>
+            <span id="ClassId" class="static"></span>
+        </div>
+        <div class="field">
+            <label for="ClassName">Name:</label>
+            <input id="ClassName" type="text" value="" />
+        </div>
+    </div>
+</div>
+</body>
+</html>

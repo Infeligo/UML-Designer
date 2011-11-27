@@ -1,0 +1,200 @@
+{
+    "type": "UML Project",
+    "name": "Internet shop",
+    "language": "en",
+    "model": {
+        "type": "UML Model",
+        "name": "Shop model",
+        "elements": [{
+            "id": "Order",
+            "type": "UML Class Element",
+            "name": "Order",
+            "attributes": [{
+                "name": "placed time"
+            }],
+            "operations": [{
+                "name": "get total price"
+            }]
+        },{
+            "id": "Order_item",
+            "type": "UML Class Element",
+            "name": "Order item",
+            "attributes": [{
+                "name":    "quantity"
+            }],
+            "operations": []
+        },{
+            "id": "Item",
+            "type":    "UML Class Element",
+            "name": "Item",
+            "attributes": [],
+            "operations": []
+        },{
+            "id": "Customer",
+            "type": "UML Class Element",
+            "name": "Customer",
+            "attributes": [{
+                "name": "shipping address",
+                "type": "Address"
+            },{
+                "name": "age"
+            }]
+        },{
+            "id": "Customer_places_Order",
+            "type": "UML Association Element",
+            "name": "places",
+            "connectionA": {
+                "classifier": "Customer",
+                "role": "",
+                "multiplicity": "1"
+            },
+            "connectionB": {
+                "classifier": "Order",
+                "role": "",
+                "multiplicity": "1..*"
+            }
+        },{
+            "id": "Order_aggregates_Order_item",
+            "type": "UML Aggregation Element",
+            "subtype": "Composition",
+            "name": "",
+            "owner": {
+                "classifier": "Order",
+                "role": "",
+                "multiplicity": "1"
+            },
+            "belonging": {
+                "classifier": "Order_item",
+                "role": "",
+                "multiplicity": "1..*"
+            }
+        },{
+            "id": "Item_describes_Order_item",
+            "type": "UML Association Element",
+            "name": "describes",
+            "connectionA": {
+                "classifier": "Item",
+                "role": "",
+                "multiplicity": "1"
+            },
+            "connectionB": {
+                "classifier": "Order_item",
+                "role": "",
+                "multiplicity": "0..*"
+            }
+        },{
+            "id": "Shipment",
+            "type": "UML Class Element",
+            "name": "Shipment",
+            "attributes": [{
+                "name": "ship date"
+            },{
+                "name": "tracking nr"
+            }],
+            "operations": []
+        },{
+            "id": "Package_delivery",
+            "type": "UML Class Element",
+            "name": "Package delivery",
+            "attributes": [],
+            "operations": []
+        },{
+            "type": "UML Class Diagram",
+            "id": "Order_diagram",
+            "name": "Order diagram",
+            "items": [{
+                "element": "Order",
+                "type": "UML Class Item",
+                "id": "Order",
+                "top": 50,
+                "left": 100
+            },{
+                "element": "Order_item",
+                "type": "UML Class Item",
+                "id": "Order_item",
+                "top": 50,
+                "left": 400
+            },{
+                "element": "Customer",
+                "type": "UML Class Item",
+                "id": "Customer",
+                "hiddenAttributes": [
+                    "age"
+                ],
+                "top": 250,
+                "left": 100
+            },{
+                "element": "Item",
+                "type": "UML Class Item",
+                "id": "Item",
+                "top": 240,
+                "left": 410
+            },{
+                "element": "Item_describes_Order_item",
+                "type": "UML Association Item",
+                "id": "Item_describes_Order_item",
+                "connectionA": {
+                    "item": "Item",
+                    "connector": 1,
+                    "offsetX": 12,
+                    "offsetY": -8
+                },
+                "connectionB": {
+                    "item": "Order_item",
+                    "connector": 3,
+                    "offsetX": -18,
+                    "offsetY": 15
+                }
+            },{
+                "element": "Order_aggregates_Order_item",
+                "type": "UML Aggregation Item",
+                "id": "Order_aggregates_Order_item",
+                "owner": {
+                    "item": "Order",
+                    "connector": 2,
+                    "offsetX": 8,
+                    "offsetY": -10
+                },
+                "belonging": {
+                    "item": "Order_item",
+                    "connector": 4,
+                    "offsetX": -15,
+                    "offsetY": 18
+                }
+            },{
+                "element": "Customer_places_Order",
+                "type": "UML Association Item",
+                "id": "Customer_places_Order",
+                "connectionA": {
+                    "item": "Customer",
+                    "connector": 1,
+                    "offsetX": -15,
+                    "offsetY": -7
+                },
+                "connectionB": {
+                    "item": "Order",
+                    "connector": 3,
+                    "offsetX": 20,
+                    "offsetY": 15
+                }
+            }]
+        },{
+            "id": "Shipment_diagram",
+            "type": "UML Class Diagram",
+            "name": "Shipment diagram",
+            "items": [{
+                "element": "Shipment",
+                "type": "UML Class Item",
+                "id": "Shipment",
+                "top": 100,
+                "left": 100
+            },{
+                "element": "Package_delivery",
+                "type": "UML Class Item",
+                "id": "Package_delivery",
+                "top": 100,
+                "left": 400
+            }]
+        }]
+    }
+}

@@ -1,0 +1,30 @@
+#ProjectTree {
+    text-align: left;
+    padding: 12px;
+    font: 11pt Lucida Sans Unicode;
+}
+
+#ProjectTree li > a {
+    display: inline-block;
+    padding: 5px 5px;
+    border-radius: 4px;
+}
+
+#ProjectTree.jstree-default {
+    0background-color: transparent !important;
+    background-color: #FDFDFD !important;
+}
+
+#ProjectTree li > a:hover {
+    background-color: #eeeeee;
+}
+
+#ProjectTree li > a.selected {
+    background-color: #aecff7;
+}
+
+#ProjectTree li.uml.element > a {
+    color: #333;
+    font-size: 90%;
+    padding: 4px 5px;
+}

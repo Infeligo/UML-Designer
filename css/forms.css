@@ -1,0 +1,22 @@
+.form .form-row {
+    margin: 0.6em 0;
+}
+
+.form .form-row label {
+    display: block;
+    margin: 0 0 0.3em 0;
+}
+
+.form .form-row textarea {
+    width: 100%;
+}
+
+.form input, .form textarea, .form select {
+    font-size: 14px;
+}
+
+.form span.static {
+    font-size: 14px;
+    color: #000;
+}
+
