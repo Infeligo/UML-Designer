@@ -11,12 +11,15 @@ function () {
         constructor: function (diagramView) {
             this._diagramView = diagramView;
             this._isRedrawingLocked = 0;
+            this._isSelected = false;
+            this._isHighlighted = false;
         },
 
         getDiagram: function () { return this._diagram; },
 
         display: function () {
             console.debug("Displaying widget %s", this._item.getId());
+            this._sprite.addListener(doodle.events.MouseEvent.MOUSE_DOWN, dojo.hitch(this, this.handleMouseDownEvent));
             this._diagramView._displayWidget(this);
         },
 
@@ -40,12 +43,15 @@ function () {
 
         _redraw: function () { /* noop; */ },
 
-        isSelected: function () {
-            return false;
-        },
+        isSelected: function () { return this._isSelected; },
+        setSelected: function (v) { this._isSelected = v; },
 
-        isHighlighted: function () {
-            return false;
-        }
+        isHighlighted: function () { return false; },
+        setHighlighted: function (v) { this._isHighlighted = v; },
+
+        handleMouseDownEvent: function (e) {
+            this.onMouseDownEvent(e, this);
+        },
+        onMouseDownEvent: function () {}
     });
 });

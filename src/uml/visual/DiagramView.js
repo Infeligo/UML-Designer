@@ -21,13 +21,12 @@ function (mapping) {
         },
 
         init: function () {
-            if (this._initialized) {
-                return;
-            } else {
-                this._setupDisplay();
-                this._setupWidgets();
-                this._initialized = true;
-            }
+            if (this._initialized) return;
+
+            this._setupDisplay();
+            this._setupWidgets();
+
+            this._initialized = true;
         },
 
         _setupDisplay: function () {
@@ -61,6 +60,7 @@ function (mapping) {
             _.each(this._diagram.getItems(), function (e) {
                 var widget = this.createWidget(e);
                 if (widget) this._widgets.push(widget);
+                dojo.connect(widget, "onMouseDownEvent", this, "handleWidgetMouseDownEvent");
                 widget.display();
             }, this);
         },
@@ -95,6 +95,12 @@ function (mapping) {
             } catch (e) {
                 console.error("Could not instantiate widget of type %s", item.getType(), e);
                 return null;
+            }
+        },
+
+        handleWidgetMouseDownEvent: function (e, widget) {
+            if (_.isFunction(widget.isSelected)) {
+                this.setSelected(!widget.isSelected());
             }
         }
 
