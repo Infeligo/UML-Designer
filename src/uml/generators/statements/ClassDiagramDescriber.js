@@ -1,12 +1,12 @@
 define([
-    "uml/generators/statements/_Describer",
+    "uml/generators/statements/Describer",
     "uml/generators/statements/DescriberSupport",
     "verb/Sentence",
     "uml/metamodel/diagrams/ClassDiagram"
 ],
-function (_Describer, DescriberSupport, Sentence, ClassDiagram) {
+function (Describer, DescriberSupport, Sentence, ClassDiagram) {
 
-    return dojo.declare([_Describer, DescriberSupport], {
+    return dojo.declare([Describer, DescriberSupport], {
 
         canDescribe: function (subj) {
             return subj.isInstanceOf(ClassDiagram);

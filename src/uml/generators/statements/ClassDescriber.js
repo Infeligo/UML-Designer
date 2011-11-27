@@ -1,10 +1,10 @@
 define([
-    "uml/generators/statements/_Describer",
+    "uml/generators/statements/Describer",
     "uml/generators/statements/DescriberSupport"
 ],
-function (_Describer, DescriberSupport) {
+function (Describer, DescriberSupport) {
 
-    return dojo.declare([_Describer, DescriberSupport], {
+    return dojo.declare([Describer, DescriberSupport], {
 
         canDescribe: function (obj) {
             return obj.getType() === "UML Class Item";

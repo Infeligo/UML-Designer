@@ -3,12 +3,12 @@
  */
 
 define([
-    "uml/generators/statements/_Describer",
+    "uml/generators/statements/Describer",
     "uml/generators/statements/DescriberSupport"
 ],
-function (_Describer, DescriberSupport) {
+function (Describer, DescriberSupport) {
 
-    return dojo.declare(_Describer, {
+    return dojo.declare(Describer, {
 
         canDescribe: function (what) {
             return what.getType ? what.getType() === "UML Comment Item" : false;
