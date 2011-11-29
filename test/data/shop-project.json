@@ -55,7 +55,7 @@
         },{
             "id": "Customer_places_Order",
             "type": "UML Association Element",
-            "name": "places",
+            "name": "places / is placed by",
             "connectionA": {
                 "classifier": "Customer",
                 "role": "",
@@ -84,7 +84,7 @@
         },{
             "id": "Item_describes_Order_item",
             "type": "UML Association Element",
-            "name": "describes",
+            "name": "describes / is described by",
             "connectionA": {
                 "classifier": "Item",
                 "role": "",

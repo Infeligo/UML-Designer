@@ -17,7 +17,6 @@ function (Verbalizer, helper, inflection, conjugation) {
 
         inflectNoun: function (noun, inForm, toForm) {
             if (inForm === toForm) return noun;
-            console.log(noun, inForm, toForm);
             if (inForm === "sg-n" && toForm === "pl-n") {
                 return this._inflection.pluralize(noun);
             }

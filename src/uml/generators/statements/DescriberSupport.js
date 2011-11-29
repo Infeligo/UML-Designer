@@ -4,9 +4,10 @@
  * extract information from the model.
  */
 define([
-    "verb/Sentence"
+    "verb/Sentence",
+    "verb/utils"
 ],
-function (Sentence) {
+function (Sentence, utils) {
 
     return dojo.declare(null, {
 
@@ -82,11 +83,11 @@ function (Sentence) {
             if (partOfSpeech === "verb") {
                 if (!options.indirect) {
                     if (word.value.indexOf("/") != -1) {
-                        word.value = word.value.substr(0, word.value.indexOf("/"));
+                        word.value = utils.trim(word.value.substr(0, word.value.indexOf("/")));
                     }
                 } else {
                     if (word.value.indexOf("/") != -1) {
-                        word.value = word.value.substr(word.value.indexOf("/")+1);
+                        word.value = utils.trim(word.value.substr(word.value.indexOf("/")+1));
                     }
                 }
             }

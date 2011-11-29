@@ -132,7 +132,7 @@ function (Widget) {
                 
             this._layout.title = {
                 x: Math.min(a.x, b.x) + Math.round(Math.abs(a.x - b.x) / 2),
-                y: Math.min(a.y, b.y) + Math.round(Math.abs(a.y - b.y) / 2)
+                y: Math.min(a.y, b.y) + Math.round(Math.abs(a.y - b.y) / 2) - 10
             };
         }
 
