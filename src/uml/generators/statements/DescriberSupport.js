@@ -50,7 +50,7 @@ function (Sentence) {
             return sentence;
         },
 
-        _getNameForm: function (element) {
+        _getNameForm: function (element, partOfSpeech) {
             if (element.getTag) {
                 var verb = element.getTag("verbalization");
                 if (verb["name_form"]) {
@@ -59,27 +59,46 @@ function (Sentence) {
             }
             // TODO Support name forms
             //return this._settings.getDefaultNameForm(element);
-            return "n-s"; // nominative singular
+            
+            if (partOfSpeech === "noun") { return "sg-n"; }
+            // Distinguish between relationship names and operation names
+            if (partOfSpeech === "verb" && element.getType) { return "indic"; }
+            if (partOfSpeech === "verb") { return "infin"; }
+            return null;
         },
 
         /**
          * Extracts name from an element
          */
-        _pluckName: function (element, partOfSpeech) {
-            return {
-                type: partOfSpeech ? partOfSpeech : "noun",
+        _pluckName: function (element, partOfSpeech, options) {
+            partOfSpeech = partOfSpeech || "noun";
+            options = options || {};
+            var word = {
+                type: partOfSpeech,
                 value: element.getName ? element.getName() : element.name,
-                form: this._getNameForm(element),
+                inForm: this._getNameForm(element, partOfSpeech),
                 rel: element
             };
+            if (partOfSpeech === "verb") {
+                if (!options.indirect) {
+                    if (word.value.indexOf("/") != -1) {
+                        word.value = word.value.substr(0, word.value.indexOf("/"));
+                    }
+                } else {
+                    if (word.value.indexOf("/") != -1) {
+                        word.value = word.value.substr(word.value.indexOf("/")+1);
+                    }
+                }
+            }
+            return word;
         },
 
         /**
          * Extracts names from an array of elements.
          */
-        _pluckNames: function (els, partOfSpeech, form) {
+        _pluckNames: function (els, partOfSpeech, options) {
             return _(els.clone()).map(
-                function (el) { return this._pluckName(el, partOfSpeech, form); },
+                function (el) { return this._pluckName(el, partOfSpeech, options); },
                 this
             );
         }

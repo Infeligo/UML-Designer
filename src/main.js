@@ -20,6 +20,7 @@ require(["app/Application"], function (Application) {
 
         $("#btnProjectNew").click(app.createProject);
         $("#btnProjectOpen").click(showWelcomeArea);
+        $("#Welcome .back-to-project").click(function () { showProjectArea(); return false; });
 
         function showWelcomeArea() {
             $('.screen-area').hide();

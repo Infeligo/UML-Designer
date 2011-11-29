@@ -16,8 +16,8 @@ function (Describer, DescriberSupport) {
 
         describe: function (gener) {
             return this._createSentence("Generalization", {
-                "child": this._pluckName(gener.getText()),
-                "super": this._pluckName(gener.getSuper())
+                "child": this._pluckName(gener.getElement().getChild()),
+                "super": this._pluckName(gener.getElement().getSuper())
             });
         }
 

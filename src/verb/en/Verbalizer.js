@@ -1,9 +1,10 @@
 define([
     "verb/Verbalizer",
     "verb/en/helper",
-    "verb/en/inflection"
+    "verb/en/inflection",
+    "verb/en/conjugation",
 ],
-function (Verbalizer, helper, inflection) {
+function (Verbalizer, helper, inflection, conjugation) {
 
     return dojo.declare([Verbalizer], {
 
@@ -11,26 +12,34 @@ function (Verbalizer, helper, inflection) {
             this._language = "en";
             this._helper = helper;
             this._inflection = inflection;
+            this._conjugation = conjugation;
         },
 
-        inflectNoun: function (noun, form, context) {
-            if (!form) return noun;
-
-            switch (form) {
-                case "pl_n":
-                    return this._inflection.pluralize(noun);
-                default:
-                    console.debug("Verbalizer for language %s doesn't support form %s of the noun '%s'", this._lang, form, noun);
-                    return noun + "?";
+        inflectNoun: function (noun, inForm, toForm) {
+            if (inForm === toForm) return noun;
+            console.log(noun, inForm, toForm);
+            if (inForm === "sg-n" && toForm === "pl-n") {
+                return this._inflection.pluralize(noun);
             }
+            return noun;
         },
-
+        
+        _verbalizeNoun: function (word) {
+            word.value = word.value.substr(0,1).toLowerCase() + word.value.substr(1);
+            if (!word.toForm) word.toForm = "sg-n";
+            return this.inflectNoun(word.value, word.inForm, word.toForm);
+        },
+        
         inflectAdjective: function (adjective, form, context) {
             return adjective;
         },
+        
+        _verbalizeVerb: function (word) {
+            return this.conjugateVerb(word.value, word.inForm, word.toForm);
+        },
 
-        conjugateVerb: function (verb, form, context) {
-            return verb;
+        conjugateVerb: function (verb, inForm, toForm) {
+            return this._conjugation.conjugate(verb, inForm, toForm);
         },
 
         getConjunction: function (conj) {

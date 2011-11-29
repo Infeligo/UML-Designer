@@ -8,7 +8,7 @@ function (RelationshipItem) {
         constructor: function () {
             this._type = "UML Generalization Item";
         },
-		
+        
         getSuperConnection: function () { return this._connections[0]; },
         setSuperConnection: function (connection) { this._connections[0] = connection; },
 
@@ -17,7 +17,7 @@ function (RelationshipItem) {
 
         loadConnections: function (data) {
             this._connections.push(data["super"]);
-            this._connections.push(data.child);
+            this._connections.push(data["child"]);
         },
 
     });

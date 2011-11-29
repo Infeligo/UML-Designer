@@ -19,7 +19,7 @@ define(function () {
         },
 
         "Class operations": {
-            template: "${class} does ${operations}",
+            template: "${class} can ${operations}",
             placeholders: {
                 "class": "noun",
                 "operations": { type: "list", of: "verb", conjunction: "and" }
@@ -32,7 +32,7 @@ define(function () {
                 "object": "noun",
                 "association": {
                     type: "verb",
-                    name: "is associated with"
+                    toForm: "indic"
                 },
                 "subject": "noun"
             }
@@ -42,7 +42,10 @@ define(function () {
             template: "each ${subject} must ${association} at least one ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
                 "object": "noun"
             }
         },
@@ -51,8 +54,15 @@ define(function () {
             template: "each ${subject} must ${association} at least ${N} ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
-                "object": "noun"
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
+                "object": {
+                    type: "noun",
+                    toForm: "pl-n"
+                },
+                "N": "plural"
             }
         },
         
@@ -60,7 +70,10 @@ define(function () {
             template: "each ${subject} must ${association} exactly one ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
                 "object": "noun"
             }
         },
@@ -69,7 +82,10 @@ define(function () {
             template: "each ${subject} can ${association} at most one ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
                 "object": "noun"
             }
         },
@@ -78,8 +94,14 @@ define(function () {
             template: "each ${subject} can ${association} at most ${N} ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
-                "object": "noun"
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
+                "object": {
+                    type: "noun",
+                    toForm: "pl-n"
+                }
             }
         },
         
@@ -87,8 +109,14 @@ define(function () {
             template: "each ${subject} can ${association} many ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
-                "object": "noun"
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
+                "object": {
+                    type: "noun",
+                    toForm: "pl-n"
+                }
             }
         },
         
@@ -96,13 +124,37 @@ define(function () {
             template: "each ${subject} can ${association} none ${object}",
             placeholders: {
                 "subject": "noun",
-                "association": "verb",
-                "object": "noun"
+                "association": {
+                    type: "verb",
+                    toForm: "infin"
+                },
+                "object": {
+                    type: "noun",
+                    toForm: "pl-n"
+                }
             }
         },
         
+        "association": {
+            value: "is association with",
+            type: "verb",
+            inForm: "indic"
+        },
+        
+        "aggregation direct": {
+            value: "has",
+            type: "verb",
+            inForm: "indic"
+        },
+        
+        "aggregation indirect": {
+            value: "belongs to",
+            type: "verb",
+            inForm: "indic"
+        },
+        
         "Generalization": {
-            template: "{child} is {super}",
+            template: "${child} is ${super}",
             placeholders: {
                 "child": "noun",
                 "super": "noun"
@@ -110,7 +162,7 @@ define(function () {
         },
         
         "Generalization reverse": {
-            template: "{super} can be {children}",
+            template: "${super} can be ${children}",
             placeholders: {
                 "super": "noun",
                 "children": { type: "list", of: "noun", conjunction: "and" }

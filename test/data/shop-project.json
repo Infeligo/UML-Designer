@@ -40,6 +40,19 @@
                 "name": "age"
             }]
         },{
+            "id": "Registered_user",
+            "type": "UML Class Element",
+            "name": "Registered user",
+            "attributes": [{
+                "name": "username"
+            }]
+        },{
+            "id": "Customer_is_Registered_user",
+            "type": "UML Generalization Element",
+            "name": "",
+            "child": "Customer",
+            "super": "Registered_user"
+        },{
             "id": "Customer_places_Order",
             "type": "UML Association Element",
             "name": "places",
@@ -106,14 +119,14 @@
                 "element": "Order",
                 "type": "UML Class Item",
                 "id": "Order",
-                "top": 50,
-                "left": 100
+                "top": 170,
+                "left": 405
             },{
                 "element": "Order_item",
                 "type": "UML Class Item",
                 "id": "Order_item",
-                "top": 50,
-                "left": 400
+                "top": 350,
+                "left": 401
             },{
                 "element": "Customer",
                 "type": "UML Class Item",
@@ -121,27 +134,45 @@
                 "hiddenAttributes": [
                     "age"
                 ],
-                "top": 250,
-                "left": 100
+                "top": 170,
+                "left": 50
+            },{
+                "element": "Registered_user",
+                "type": "UML Class Item",
+                "id": "Registered_user",
+                "top": 30,
+                "left": 41
             },{
                 "element": "Item",
                 "type": "UML Class Item",
                 "id": "Item",
-                "top": 240,
-                "left": 410
+                "top": 355,
+                "left": 60
+            },{
+                "element": "Customer_is_Registered_user",
+                "type": "UML Generalization Item",
+                "id": "Customer_is_Registered_user",
+                "child": {
+                    "item": "Customer",
+                    "connector": 1
+                },
+                "super": {
+                    "item": "Registered_user",
+                    "connector": 3
+                }
             },{
                 "element": "Item_describes_Order_item",
                 "type": "UML Association Item",
                 "id": "Item_describes_Order_item",
                 "connectionA": {
                     "item": "Item",
-                    "connector": 1,
+                    "connector": 2,
                     "offsetX": 12,
                     "offsetY": -8
                 },
                 "connectionB": {
                     "item": "Order_item",
-                    "connector": 3,
+                    "connector": 4,
                     "offsetX": -18,
                     "offsetY": 15
                 }
@@ -151,15 +182,15 @@
                 "id": "Order_aggregates_Order_item",
                 "owner": {
                     "item": "Order",
-                    "connector": 2,
-                    "offsetX": 8,
-                    "offsetY": -10
+                    "connector": 3,
+                    "offsetX": 12,
+                    "offsetY": 15
                 },
                 "belonging": {
                     "item": "Order_item",
-                    "connector": 4,
+                    "connector": 1,
                     "offsetX": -15,
-                    "offsetY": 18
+                    "offsetY": -8
                 }
             },{
                 "element": "Customer_places_Order",
@@ -167,15 +198,15 @@
                 "id": "Customer_places_Order",
                 "connectionA": {
                     "item": "Customer",
-                    "connector": 1,
-                    "offsetX": -15,
+                    "connector": 2,
+                    "offsetX": 10,
                     "offsetY": -7
                 },
                 "connectionB": {
                     "item": "Order",
-                    "connector": 3,
-                    "offsetX": 20,
-                    "offsetY": 15
+                    "connector": 4,
+                    "offsetX": -16,
+                    "offsetY": 18
                 }
             }]
         },{

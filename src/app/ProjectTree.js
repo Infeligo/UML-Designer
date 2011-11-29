@@ -4,7 +4,7 @@ define([
 function (Diagram) {
 
     var nodeTempl = _.template(
-        '<li<% if (cssClass) { %> class="<%=cssClass%>"<% } %>>' + 
+        '<li<% if (id) { %> id="<%=id%>"<% }; %><% if (cssClass) { %> class="<%=cssClass%>"<% }; %>>' + 
         '<a href="<%=href%>" data-ref="<%=ref%>"><%=name%></a>' +
         '<% if (children) { %><ul><%=children%></ul><% } %>' + 
         '</li>');
@@ -27,7 +27,8 @@ function (Diagram) {
                     "html_data"
                 ],
                 core: {
-                    animation: 200
+                    "animation": 200,
+                    "initially_open" : [ "root" ]
                 },
                 themes: {
                     "theme" : "default",
@@ -61,6 +62,7 @@ function (Diagram) {
             // Model is the root node
             var model = this.app.project.getModel();
             var tree = nodeTempl({
+                "id": "root",
                 "href": "#",
                 "ref": "",
                 "name": model.getName(),
@@ -84,6 +86,7 @@ function (Diagram) {
             _.each(diagrams, function (e) {
                 html += nodeTempl({
                     "href": "#",
+                    "id": e.getId(),
                     "name": e.getName(),
                     "ref": e.getId(),
                     "cssClass": "uml diagram",
@@ -93,6 +96,7 @@ function (Diagram) {
             _.each(classifiers, function (e) {
                 html += nodeTempl({
                     "href": "#",
+                    "id": e.getId(),
                     "name": e.getName(),
                     "ref": e.getId(),
                     "cssClass": "uml element",

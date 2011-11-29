@@ -52,6 +52,7 @@ function (Element, Package, Diagram, mapping) {
         },
 
         getElementById: function (id) {
+            if (typeof id === "undefined") { console.trace(); }
             var el = _.detect(this._elements, function (el) { return el.getId() === id });
             if (!el) console.log("Could not find element '%s'.", id);
             return el;

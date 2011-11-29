@@ -32,46 +32,54 @@ function (templates,
         },
 
         generate: function (diagram) {
+            this._text = "";
             this._sentences = [];
             // Generate descriptions
             this._generateIntro(diagram);
             this._generateClassDescriptions(diagram);
             this._generateAssociationDescriptions(diagram);
 //            this._generateOutro(diagram);
-            // Transform into natural language
-            return this._verbalizer.verbalize(this._sentences);
+            return this._text;
         },
 
         _generateIntro: function (diagram) {
-            var result;
+            var result, text = "";
             result = this._classDiagramDescriber.describe(diagram);
-            this._mergeSentences(result);
-
+            text += this._verbalize(result);
             //result = this._commentDescriber.describe(topComments);
-            //this._mergeSentences(result);
+            //text += this._verbalize(result);
+            this._text += this._p(text);
         },
 
         _generateClassDescriptions: function (diagram) {
-            function isClass(el) {
-                return el.getType() === "UML Class Item";
-            }
-
-            _.each(_.select(diagram.getItems(), isClass), function (clazz) {
-                var result = this._classDescriber.describe(clazz);
-                this._mergeSentences(result);
+            var result;
+            var items = diagram.getItems();
+            var generalizations = _.select(items, this._generalizationDescriber.canDescribe);
+            
+            _.each(_.select(diagram.getItems(), this._classDescriber.canDescribe), function (clazz) {
+                // Generalization
+                var gen = _.detect(generalizations, function (el) { return el.getChildConnection().item === clazz; }), genText = ""
+                if (gen) {
+                    result = this._generalizationDescriber.describe(gen);
+                    genText = this._verbalize(result);
+                }
+                // Attributes and operations
+                result = this._classDescriber.describe(clazz);
+                this._text += this._p(genText + this._verbalize(result));
                 //this._commentDescriber.describe(classRelatedComments);
             }, this);
         },
 
         _generateAssociationDescriptions: function (diagram) {
-            function isAssociation(el) {
-                return el.getType() === "UML Association Item";
-            }
-            var assocs = _.select(diagram.getItems(), isAssociation);
+            var assocs = _.select(diagram.getItems(), this._associationDescriber.canDescribe);
 
             _.each(assocs, function (assoc) {
-                var result = this._associationDescriber.describe(assoc);
-                this._mergeSentences(result);
+                var result = this._associationDescriber.describe(assoc, { simple: true });
+                this._text += this._p(this._verbalize(result));
+                result = this._associationDescriber.describe(assoc, { simple: false });
+                _.each(result, function (res) {
+                    this._text += this._p(this._verbalize(res), "sub");
+                }, this);
                 //this._commentDescriber.describe(associationComments);
             }, this);
         },
@@ -80,13 +88,21 @@ function (templates,
             //this._commentDescriber.describe(multirelatedComments);
             //this._commentDescriber.describe(bottomComments);
         },
-
-        _mergeSentences: function (result) {
-            if (!_.isArray(result)) result = [ result ];
-            for (var i = 0; i < result.length; i++) {
-                if (_.isObject(result[i])) {
-                    this._sentences.push(result[i]);
-                }
+        
+        // Wraps in paragraph
+        _p: function (text, classes) {
+            return '<p' + (classes ? ' class="' + classes + '">' : '>') + text + '</p>';
+        },
+        
+        _verbalize: function (s) {
+            return this._verbalizer.verbalize(s, this._wrapWord);
+        },
+        
+        _wrapWord: function (text, word) {
+            if (word.rel) {
+                return '<span class="related" data-rel-"' + word.rel.getId() + '">' + text + '</span>';
+            } else {
+                return '<span>' + text + '</span>';
             }
         }
 

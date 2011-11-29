@@ -14,7 +14,6 @@ function (Widget) {
             this._endpoints = [];
             this._initEndpoints();
             this._title = doodle.createText("").appendTo(this._sprite);
-
         },
         
         _initStyle: function (style) {
@@ -28,8 +27,8 @@ function (Widget) {
             }
         },
         
-        _redraw: function () {
-            this._layout = {};            
+        _redraw: function () {            
+            this._layout = {};
             this._layoutEndpoints();
             
             for (var i = 0; i < 2; i++) {
@@ -43,6 +42,10 @@ function (Widget) {
             
             this._sprite.graphics.clear();
             this._drawLine(this._sprite);
+            
+            for (var i = 0; i < this._endpoints.length; i++) {
+                this._endpoints[i].graphics.clear();
+            }
             this._drawEndpoints();
 
             /* Title */
@@ -80,12 +83,13 @@ function (Widget) {
 
         _drawEndpoints: function () { /* noop; */ },
         
-        _drawLine: function (sprite) {        
+        _drawLine: function (sprite) {
             var a = this._layout.endpoints[0].point,
                 b = this._layout.endpoints[1].point;
                 
             with (sprite) {
-                graphics.lineStyle(this._style.lineWidth, "#333333");
+                var color = this.isSelected() ? "#FF0000" : "#333333";
+                graphics.lineStyle(this._style.lineWidth, color);
                 graphics.beginPath();
                 graphics.moveTo(a.x, a.y);
                 graphics.lineTo(b.x, b.y);

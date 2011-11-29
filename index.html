@@ -52,14 +52,15 @@
             <span>UML Designer</span>
         </div>
         <ul class="menu">
-          <li><button id="btnProjectNew">New project</button></li>
+          <li class="hidden"><button id="btnProjectNew">New project</button></li>
           <li><button id="btnProjectOpen">Open projects..</button></li>
           <li class="divider">&nbsp;</li>
         </ul>
         <ul class="menu" id="ProjectMenu" style="display: none;">
-          <li>Project: <span class="project-name">Online shop model</span></li>
+          <li><span>Project:</span>
+              <span class="project-name">Online shop model</span></li>
           <li class="divider">&nbsp;</li>
-          <li><button id="btnProjectSave">Save</button></li>
+          <li class="hidden"><button id="btnProjectSave">Save</button></li>
           <li><button id="btnProjectSettings">Settings..</button></li>
           <li class="right"><button id="btnProjectClose">Close</button></li>
         </ul>
@@ -83,30 +84,18 @@
                 <div id="DiagramView" style="display:block">
                     <div class="view-header north">
                         <span class="view-name">Order diagram</span>
-                        <a id="linkSwitchToTextView" href="#">Text view</a>
+                        <a id="linkSwitchToTextView" href="#">Switch to text view</a>
                     </div>
                     <div class="diagram center"></div>
-                    <div class="panel text-panel south statements interactive">
-                        <p><span class="related">Student</span> is characterized by <span>full name</span>, 
-                        <span>age</span>, <span>address</span> and <span>id</span>.</p>
-                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
-                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
-                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
-                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
+                    <div class="panel text-panel south statements interactive hidden">
                     </div>
                 </div>
                 <div id="TextView" style="display:none">
                     <div class="view-header north">
                         <span class="view-name">Order diagram</span>
-                        <a id="linkSwitchToDiagramView" href="#">Diagram view</a>
+                        <a id="linkSwitchToDiagramView" href="#">Switch to diagram view</a>
                     </div>
                     <div class="text center statements">
-                        <p><span class="related">Student</span> is characterized by <span>full name</span>, 
-                        <span>age</span>, <span>address</span> and <span>id</span>.</p>
-                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
-                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
-                        <p>Each <span class="related">student</span> <span class="related">participates</span> in many <span class="related">courses</span>. 
-                           Each <span class="related">course</span> <span class="related">is participated by</span> many <span class="related">students</span>.</p>
                     </div>
                 </div>
             </div>
@@ -117,7 +106,7 @@
                     &nbsp;
                 </div>
                 <div class="button-bar">
-                    <button id="btnDiagramNew">New diagram..</button>
+                    <button class="hidden" id="btnDiagramNew">New diagram..</button>
                     <!--<button id="btnDiagramRemove">X</button>-->
                 </div>
             </div>

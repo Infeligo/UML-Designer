@@ -56,6 +56,11 @@ body {
     text-decoration: underline;
 }
 
+.header span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .header .project-name {
     font-weight: bold;
     display: inline-block;
@@ -163,6 +168,7 @@ body {
     padding: 15px;
     border-top: 1px solid #CCC;
     background-color: #FFFFFF;
+    min-height: 120px;
     overflow: auto;
 }
 
@@ -180,4 +186,8 @@ body {
     padding: 15px;
     background-color: #FFFFFF;
     overflow: auto;
+}
+
+.hidden {
+    display: none !important;
 }

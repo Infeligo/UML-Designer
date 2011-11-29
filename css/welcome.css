@@ -1,11 +1,12 @@
 .screen-dialog {
     width: 600px;
-    padding: 20px;
+    padding: 20px 20px 40px 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(128, 128, 128, 0.75);
     text-align: left;
     font-size: 14px;
     color: #333;
+    position: relative;
 }
 
 .screen-dialog h1 {
@@ -24,6 +25,20 @@
     padding-left: 0;
 }
 
+.screen-dialog a {
+    color: #4D6FC7;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.screen-dialog a:hover {
+    color: #79A0C1;
+}
+
+.screen-dialog ul > li:hover > a {
+    color: #79A0C1;
+}
+
 .screen-dialog ul > li {
     border-radius: 4px;
     padding:  5px 5px 5px 5px;
@@ -35,19 +50,21 @@
     cursor: pointer;
 }
 
-.screen-dialog ul > li > a {
-    color: #4D6FC7;
-    font-size: 16px;
-    text-decoration: none;
-}
-
-.screen-dialog ul > li:hover > a {
-    text-decoration: underline;
-}
-
 .screen-dialog ul > li > p {
     font-size: 14px;
     margin-top: 4px;
+}
+
+.screen-dialog a.back-to-project {
+    display: block;
+    width: 200px;
+    margin-left: -100px;
+    font-size: 16px;
+    font-weight: bold;
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
 }
 
 

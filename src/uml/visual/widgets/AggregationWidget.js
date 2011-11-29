@@ -11,8 +11,9 @@ function (AssociationWidget) {
         },
 
         _drawDiamond: function (sprite) {
+            var color = this.isSelected() ? "#FF0000" : "#333333";
             with (sprite) {
-                graphics.lineStyle(2, "#000000", 1);
+                graphics.lineStyle(2, color, 1);
                 graphics.beginFill("#ffffff");
                 graphics.beginPath();
                 graphics.moveTo(-20, 0);

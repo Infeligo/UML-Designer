@@ -19,7 +19,7 @@ function () {
 
         display: function () {
             console.debug("Displaying widget %s", this._item.getId());
-            this._sprite.addListener(doodle.events.MouseEvent.MOUSE_DOWN, dojo.hitch(this, this.handleMouseDownEvent));
+            //this._sprite.addListener(doodle.events.MouseEvent.MOUSE_DOWN, dojo.hitch(this, this.handleMouseDownEvent));
             this._diagramView._displayWidget(this);
         },
 
@@ -44,14 +44,24 @@ function () {
         _redraw: function () { /* noop; */ },
 
         isSelected: function () { return this._isSelected; },
-        setSelected: function (v) { this._isSelected = v; },
+        setSelected: function (v) { 
+            if (v !== this._isSelected) {
+                this._isSelected = v; 
+                this.update(); 
+            }
+        },
 
         isHighlighted: function () { return false; },
-        setHighlighted: function (v) { this._isHighlighted = v; },
-
-        handleMouseDownEvent: function (e) {
-            this.onMouseDownEvent(e, this);
+        setHighlighted: function (v) {
+            if (v !== this._isHighlighted) {
+                this._isHighlighted = v; 
+                this.update();
+            }
         },
+
+        //handleMouseDownEvent: function (e) {
+            //this.onMouseDownEvent(e, this);
+        //},
         onMouseDownEvent: function () {}
     });
 });

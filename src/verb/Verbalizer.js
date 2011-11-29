@@ -28,29 +28,38 @@ function (utils) {
         getConjunction: function (conj) {},
         getPronoun: function (pron) {},
 
-        verbalize: function (sentences) {
+        verbalize: function (sentences, wrapper) {
             var text = "",
                 self = this;
             if (!_.isArray( (sentences))) {
                  (sentences) = [ (sentences)];
             }
             _.each( (sentences), function (s) {
-                text += self._verbalize(s) + " ";
+                text += self._verbalize(s, wrapper) + " ";
             });
 
             return text;
         },
 
-        _verbalize: function (s) {
+        _verbalize: function (s, wrapper) {
             var self = this,
                 str = s.getTemplate();
+                
+            if (!_.isFunction(wrapper)) {
+                wrapper = function (w) { return w; };
+            }
 
             str = str.replace(/\$\{(\w+)\}/gi, function (ph, param) {
-               return self._verbalizeWord(s.getWord(param));
+               return wrapper(self._verbalizeWord(s.getWord(param)), s.getWord(param));
             });
 
             // Make a proper sentence
-            return utils.capitalize(str) + ".";
+            if (str.indexOf("<") === 0) {
+                var end = str.indexOf(">");
+                return str.substr(0, end+1) + utils.capitalize(str.substr(end+1)) + ".";
+            } else {
+                return utils.capitalize(str) + ".";
+            }
         },
 
         _verbalizeWord: function (word) {

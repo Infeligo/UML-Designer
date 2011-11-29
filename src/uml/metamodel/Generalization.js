@@ -12,22 +12,22 @@ function (Relationship) {
             this._type = "UML Generalization Element";
             this._super = null;
             this._child = null;
-        },        	
-		
+        },
+        
         getSuper: function () { return this._super },
         setSuper: function (v) { this._super = v; },
         
         getChild: function () { return this._child; },
         setChild: function (v) { this._child = v; },
-		
-		getConnections: function () {
-			return [ this.getSuper(), this.getChild() ];
-		},
+        
+        getConnections: function () {
+            return [ this.getSuper(), this.getChild() ];
+        },
 
         loadData: function (data) {
             this.inherited(arguments);
-            this._super = data.super;
-            this._child = data.child;
+            this._super = data["super"];
+            this._child = data["child"];
             return this;
         },
 

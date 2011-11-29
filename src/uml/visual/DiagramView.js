@@ -3,7 +3,9 @@
  */
 
 define([
-    "uml/visual/widgets/mapping"
+    "uml/visual/widgets/mapping",
+    //"uml/visual/widgets/ClassWidget",
+    //"uml/visual/widgets/RelationshipWidget"
 ],
 function (mapping) {
 
@@ -48,8 +50,9 @@ function (mapping) {
             this._display = doodle.createDisplay(this._root, {
                 "width": width,
                 "height": height,
-                "frameRate": 12
+                "frameRate": 24
             });
+            this._display.addListener(doodle.events.MouseEvent.MOUSE_DOWN, dojo.hitch(this, this.handleMouseDownEvent));
             this._activeLayer = this._display.createLayer();
         },
 
@@ -81,9 +84,7 @@ function (mapping) {
             if (typeof item === "string") {
                 item = this._diagram.getItemById(item);
             }
-            return _.detect(this._widgets, function (w) {
-                return w.getItem() === item;
-            });
+            return _.detect(this._widgets, function (w) { return w.getItem() === item; });
         },
 
         createWidget: function (item) {
@@ -99,8 +100,33 @@ function (mapping) {
         },
 
         handleWidgetMouseDownEvent: function (e, widget) {
+            if (!e.ctrlKey) this.deselectAll();
+            
             if (_.isFunction(widget.isSelected)) {
-                this.setSelected(!widget.isSelected());
+                widget.setSelected(!widget.isSelected());
+            }
+        },
+        
+        handleMouseDownEvent: function (e) {
+            return;
+            for (var i = 0; i < this._widgets.length; i++) {
+                var w = this._widgets[i];
+                if (w._sprite && w._sprite.hitTestPoint(e.offsetX, e.offsetY)) {
+                    //
+                }
+            }
+        },
+        
+        deselectAll: function () {
+            _.each(this._widgets, function (w) { w.setSelected(false); });
+        },
+        
+        distanceToLine: function (p0, p1, p) {
+            try {
+                return (p0.y - p1.y) * p.x + (p1.x - p0.x)  * p.y + (p0.x*p1.y + p1.x*p0.y) / Math.sqrt( (p1.x-p0.x)*(p1.x-p0.x) + (p1.y - p0.y)*(p1.y - p0.y) );
+            } catch (e) {
+                console.log("Error in calculations");
+                return 100;
             }
         }
 

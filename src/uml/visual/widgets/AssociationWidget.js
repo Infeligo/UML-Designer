@@ -33,14 +33,15 @@ function (RelationshipWidget) {
         },
 
         _drawArrow: function (sprite) {
+            /*var color = this.isSelected() ? "#FF0000" : "#333333";
             with (sprite) {
-                graphics.lineStyle(1, "#000000", 1);
+                graphics.lineStyle(1, color, 1);
                 graphics.beginPath();
                 graphics.moveTo(-13, -4);
                 graphics.lineTo(0, 0);
                 graphics.lineTo(-13, 4);
                 graphics.stroke();
-            }
+            }*/
         },
         
         _drawMultiplicities: function () {
